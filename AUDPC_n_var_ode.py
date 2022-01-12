@@ -118,18 +118,19 @@ def app():
                     EI = np.concatenate((x_res, a))
                 
                     # # Définition du modèle : 
-                    def modele_1(EI,t,params):
-                        n, R, c, rho, nu = params
+                    @st.cache(persist=True)
+                     def modele_1(EI,t,params):
+                         n, R, c, rho, nu = params
                         
-                        etatdot = [k*R*(1-c)**k*EI[0:-2]*(((1/n)-EI[-2]-sum(ICombi * EI[0:-2])) +(1-rho)*EI[-2])-EI[0:-2],
+                         etatdot = [k*R*(1-c)**k*EI[0:-2]*(((1/n)-EI[-2]-sum(ICombi * EI[0:-2])) +(1-rho)*EI[-2])-EI[0:-2],
                                     ((1/n)-EI[-2]-sum(ICombi * EI[0:-2]))*sum(PCombi * k*R*(1-c)**k*EI[0:-2])-(1-rho)*EI[-2]*sum(ICombi * k*R*(1-c)**k*EI[0:-2])-nu*EI[-2], 
                                     sum(EI[0:-2])]
                         
-                        etat_x = etatdot[0]
-                        etat_m = np.array([etatdot[1]])
-                        etat_a = np.array([etatdot[2]])
-                        ETATDOT = np.concatenate((etat_x, etat_m, etat_a))
-                        return ETATDOT
+                         etat_x = etatdot[0]
+                         etat_m = np.array([etatdot[1]])
+                         etat_a = np.array([etatdot[2]])
+                         ETATDOT = np.concatenate((etat_x, etat_m, etat_a))
+                         return ETATDOT
                 
                 
                     # Integration numerique 
