@@ -2,7 +2,7 @@ import streamlit as st
 
 # Custom imports 
 from multipage import MultiPage
-from pages import presentation, Timeplots_2varieties, Timeplots_3varieties, virulence_complexity, Prevalence, AUDPC_n_var_ode # sensibility_analysis,
+import presentation, Timeplots_2varieties, Timeplots_3varieties, virulence_complexity, Prevalence, AUDPC_n_var_ode # sensibility_analysis,
 
 # Create an instance of the app 
 app = MultiPage()
