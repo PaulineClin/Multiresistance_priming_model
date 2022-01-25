@@ -1,4 +1,4 @@
-## Multipage web app for epidemiological dynamic models
+## Multipage web app for eco-epidemiological dynamic models
 
 This work is a multipage web app able to represent and simulate epidemiological models based on plant-pathogens interactions in a mixture, an heterogeneous plant population. Parameters can be set by the user through a slider.
 
