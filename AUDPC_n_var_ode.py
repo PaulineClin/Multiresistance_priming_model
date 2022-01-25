@@ -57,7 +57,7 @@ def app():
     
     # Temps : 
     t_0 = 0.0
-    t_fin = 100
+    t_fin = st.number_input('Temps max:', min_value=10, max_value = 1000, value= 100)
     pas_t = 0.01
     
     # Définition du tspan (vecteur) via la fonction numpy :
@@ -118,7 +118,6 @@ def app():
                     EI = np.concatenate((x_res, a))
                 
                     # # Définition du modèle : 
-                    @st.cache()
                     def modele_1(EI,t,params):
                         n, R, c, rho, nu = params
                         
