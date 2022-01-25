@@ -5,11 +5,16 @@ import matplotlib.pyplot as plt
 
 
 def app():
-    st.markdown("# Epidemiological dynamics for a mixture with $n=3$ varieties")
+    st.markdown("# Epidemiological dynamics for a mixture with n=3 varieties")
 
     # Upload the dataset and save as csv
     st.markdown("## Time plots of the model.") 
     st.write("\n")
+    st.latex(r''' \text{Let fixed } \nu=1 \, , \text{ which is a dimensionless parameter equal to }
+                (\gamma+\alpha)/\alpha \\
+                \text{ where } \gamma \text{ is the priming loss rate 
+                and } \alpha \, , \text{ the harvest and replanting rate.} ''')
+    
     
     plt.rc('axes', labelsize=16) 
     
@@ -19,7 +24,7 @@ def app():
     R = st.slider('Transmission rate (R):', min_value=1, max_value=100, value = 20)
     c = st.slider('Virulence cost (c):', min_value=0.0, max_value=1.0, value = 0.49)
     rho = st.slider(r'Priming efficiency:', min_value=0.0, max_value=1.0, value=0.8)
-    nu = st.slider('nu:', min_value=1.0, max_value=5.0, value=1.0)
+    nu = 1
     n = 3
     
     # Encapsulation des paramètres du modèle dans une matrice  : 

@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 
 def app():
-    st.markdown("# Epidemiological dynamics for a mixture with $n=2$ varieties")
+    st.markdown("# Epidemiological dynamics for a mixture with n=2 varieties")
 
     # Upload the dataset and save as csv
     st.markdown("## Time plots of the model.") 
@@ -18,12 +18,17 @@ def app():
     # st.header("")
     
     # st.subheader("")
-     
+    
+    st.latex(r''' \text{Let fixed } \nu=1 \, , \text{ which is a dimensionless parameter equal to }
+                (\gamma+\alpha)/\alpha \\
+                \text{ where } \gamma \text{ is the priming loss rate 
+                and } \alpha \, , \text{ the harvest and replanting rate.} ''')
+    
     # Paramètre du modèle :
     R = st.slider('Transmission rate (R):', min_value=1, max_value=100, value = 20)
     c = st.slider('Virulence cost (c):', min_value=0.0, max_value=1.0, value = 0.49)
     rho = st.slider(r'''Priming efficiency:''', min_value=0.0, max_value=1.0, value = 0.8)
-    nu = st.slider('nu:', min_value=1.0, max_value=5.0, value = 1.0)
+    nu = 1
     n = 2
     
     # Encapsulation des paramètres du modèle dans une matrice  : 
@@ -66,7 +71,7 @@ def app():
     
     # Temps : 
     t_0_bis = 0.0
-    t_fin_bis = 30
+    t_fin_bis = st.number_input('Temps max:', min_value=10, max_value = 1000, value= 30)
     pas_t_bis = 0.01
     
     # Définition du tspan (vecteur) via la fonction numpy :
@@ -118,7 +123,7 @@ def app():
     
     # modification des bornes des axes
     axes[1].set_ylim(0, np.max(int_priming_cpl+0.05))
-    axes[1].set_xlim(0, 30)
+    axes[1].set_xlim(0, t_fin_bis)
 
     # Show the pyplot figure in the app : 
     st.pyplot(fig)
