@@ -35,8 +35,7 @@ def app():
     
     # Temps : 
     t_0 = 0.0
-    t_fin = st.slider('Time:', min_value = 50, max_value = 1000, value = 300)
-    #t_fin = 300
+    t_fin = st.number_input('Temps max:', min_value=10, max_value = 1000, value= 300)
     pas_t = 0.01
     
     # Définition du tspan (vecteur) via la fonction numpy :
