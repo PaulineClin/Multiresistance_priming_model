@@ -40,7 +40,6 @@ def app():
     # Temps : 
     t_0 = 0.0
     t_fin = st.number_input('Temps max:', min_value=10, max_value = 500, value= 200)
-    # t_fin = 50
     pas_t = 0.01          
     
     # Définition du tspan (vecteur) via la fonction numpy :
