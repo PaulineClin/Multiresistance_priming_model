@@ -23,7 +23,7 @@ def app():
     R = st.slider('Transmission rate (R):', min_value=1, max_value=100, value = 20)
     c = st.slider('Virulence cost (c):', min_value=0.0, max_value=1.0, value = 0.49)
     rho = st.slider(r'''Priming efficiency:''', min_value=0.0, max_value=1.0, value = 0.8)
-    nu = st.slider('nu :', min_value=1.0, max_value=5.0, value = 1.0)
+    nu = st.slider('nu:', min_value=1.0, max_value=5.0, value = 1.0)
     n = 2
     
     # Encapsulation des paramètres du modèle dans une matrice  : 
@@ -35,7 +35,8 @@ def app():
     
     # Temps : 
     t_0 = 0.0
-    t_fin = 300
+    t_fin = st.slider('Time:', min_value = 50, max_value = 1000, value = 300)
+    #t_fin = 300
     pas_t = 0.01
     
     # Définition du tspan (vecteur) via la fonction numpy :
