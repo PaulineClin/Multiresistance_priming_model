@@ -7,4 +7,4 @@ def app():
     st.markdown("This application shows the figures of the study.") 
     st.write("\n")
     
-    st.mardown(" - Time plots.")
+   
