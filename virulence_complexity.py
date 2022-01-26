@@ -8,36 +8,24 @@ Fitness fonction according to the virulence complexity of the pathogen.
 
 # Importation des différents packages :
 import streamlit as st
-import math
 import numpy as np 
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 
-
+@st.cache(suppress_st_warning = True)
 def app():
 
-    st.markdown("# Pathogen fitness according the virulence complexity of the pathogen genotype")
+    st.markdown("# Pathogen fitness according the virulence complexity of the genotype pathogène")
     st.markdown("## Fitness function")
-    
-    def FitnessMax(c):
-        imax = -(1/(math.log(1-c)))
-        i_inf = int(imax)
-        i_sup = int(imax + 1)
-        Fitness_i_inf = (1-c)**(i_inf)*R*i_inf
-        Fitness_i_sup = (1-c)**(i_sup)*R*i_sup
-        if Fitness_i_inf > Fitness_i_sup: 
-            return(i_inf)
-        else: 
-            return(i_sup)
-    
     # Figure de la fitness en fonction de i :
     
     R = st.slider('Transmission rate (R):', min_value=1, max_value=100, value = 20)
     c = st.slider('Virulence cost (c):', min_value=0.0, max_value=1.0, value = 0.3)
     i = np.arange(1, 21, 0.1)
-    
     Fitness = R*(1-c)**i*i
-    K_max = FitnessMax(c)
+    Fitness_max = np.where(Fitness == np.amax(Fitness))
+    K_max = int(np.around(i[Fitness_max]))
+    print(K_max)
     
     fig, ax = plt.subplots()
     plt.plot(i, Fitness, 'k')
