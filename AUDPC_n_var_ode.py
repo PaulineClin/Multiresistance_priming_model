@@ -13,7 +13,6 @@ from scipy.integrate import odeint
 import numpy as np 
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
-import math
 
 
 def app(): 
@@ -26,12 +25,14 @@ def app():
     ###############################################################################
     ## Model function for a focal variety:   
     # The infection force of a given pathogen genotype:
-    def inf_force_patho(k,x):
+    @st.cache(suppress_st_warning= True)
+    def inf_force_patho(k,x, R, c):
         inf_patho = k*R*(1-c)**k*x
         return(inf_patho)
         
         
     # Vector infection binomial coefficient:
+    @st.cache(suppress_st_warning= True)    
     def inf_combi(n,k):
         inf_comb = []
         for i in k:
@@ -39,11 +40,51 @@ def app():
         return(np.array(inf_comb))
     
     # Vector priming binomial coefficient:
+    @st.cache(suppress_st_warning= True)    
     def prim_combi(n,k):
         prim_comb = []
         for i in k:
             prim_comb.append(scipy.special.comb(n-1,i)) # math.comb(n-1,i)
         return(np.array(prim_comb))  
+    
+    # Time function:
+    @st.cache(suppress_st_warning= True)
+    def duration(t_0, t_fin, pas_t):
+        tspan = np.arange(t_0, t_fin, pas_t)
+        return tspan
+    
+    # Parameters:
+    @st.cache(suppress_st_warning= True)    
+    def parameters(R,c,rho,nu,n):
+        params = np.array([n, R, c, rho, nu])
+        return params
+
+    # ode function:
+    @st.cache(suppress_st_warning= True)    
+    def modele_1(EI,t,params):
+        n, R, c, rho, nu = params
+        
+        etatdot = [k*R*(1-c)**k*EI[0:-1]*(((1/n)-sum(ICombi * EI[0:-1])))-EI[0:-1], 
+                   sum(EI[0:-1])]
+        
+        etat_x = etatdot[0]
+        etat_a = np.array([etatdot[1]])
+        ETATDOT = np.concatenate((etat_x, etat_a))
+        return ETATDOT
+    
+    @st.cache(suppress_st_warning= True)    
+    def modele_2(EI,t,params):
+        n, R, c, rho, nu = params
+        
+        etatdot = [k*R*(1-c)**k*EI[0:-2]*(((1/n)-EI[-2]-sum(ICombi * EI[0:-2])) +(1-rho)*EI[-2])-EI[0:-2],
+                   ((1/n)-EI[-2]-sum(ICombi * EI[0:-2]))*sum(PCombi * k*R*(1-c)**k*EI[0:-2])-(1-rho)*EI[-2]*sum(ICombi * k*R*(1-c)**k*EI[0:-2])-nu*EI[-2], 
+                   sum(EI[0:-2])]
+        
+        etat_x = etatdot[0]
+        etat_m = np.array([etatdot[1]])
+        etat_a = np.array([etatdot[2]])
+        ETATDOT = np.concatenate((etat_x, etat_m, etat_a))
+        return ETATDOT
     
     ###############################################################################
     ###############################################################################    
@@ -61,7 +102,7 @@ def app():
     pas_t = 0.01
     
     # Définition du tspan (vecteur) via la fonction numpy :
-    tspan = np.arange(t_0, t_fin, pas_t) # création d'un vecteur avec des valeurs uniformément espacées.
+    time = duration(t_0,t_fin,pas_t) # création d'un vecteur avec des valeurs uniformément espacées.
     
     # Maximum pathogen fitness 
     i = np.arange(1, 21, 0.1)
@@ -94,22 +135,10 @@ def app():
                 x_res = np.full((n), 0.01)  # for infected hote by each virulence complexities
                 a = np.array([sum(x_res)])
                 EI = np.concatenate((x_res, a))
-                
-                # Définition du modèle : 
-                def modele_1(EI,t,params):
-                    n, R, c, rho, nu = params
-                    
-                    etatdot = [k*R*(1-c)**k*EI[0:-1]*(((1/n)-sum(ICombi * EI[0:-1])))-EI[0:-1], 
-                               sum(EI[0:-1])]
-                    
-                    etat_x = etatdot[0]
-                    etat_a = np.array([etatdot[1]])
-                    ETATDOT = np.concatenate((etat_x, etat_a))
-                    return ETATDOT
         
         
                 # Integration numerique 
-                int_priming = odeint(modele_1, EI, tspan, args=(params,), hmax=pas_t)
+                int_priming = odeint(modele_1, EI, time, args=(params,), hmax=pas_t)
                 
                 while np.any((int_priming[:,-1] < 0)):
                     x_res = x_res*0.1  # for infected hote by each virulence complexities
@@ -117,23 +146,9 @@ def app():
                     
                     EI = np.concatenate((x_res, a))
                 
-                    # # Définition du modèle : 
-                    def modele_1(EI,t,params):
-                        n, R, c, rho, nu = params
-                        
-                        etatdot = [k*R*(1-c)**k*EI[0:-2]*(((1/n)-EI[-2]-sum(ICombi * EI[0:-2])) +(1-rho)*EI[-2])-EI[0:-2],
-                                   ((1/n)-EI[-2]-sum(ICombi * EI[0:-2]))*sum(PCombi * k*R*(1-c)**k*EI[0:-2])-(1-rho)*EI[-2]*sum(ICombi * k*R*(1-c)**k*EI[0:-2])-nu*EI[-2], 
-                                   sum(EI[0:-2])]
-                        
-                        etat_x = etatdot[0]
-                        etat_m = np.array([etatdot[1]])
-                        etat_a = np.array([etatdot[2]])
-                        ETATDOT = np.concatenate((etat_x, etat_m, etat_a))
-                        return ETATDOT
-                
-                
+                    
                     # Integration numerique 
-                    int_priming = odeint(modele_1, EI, tspan, args=(params,), hmax=pas_t)
+                    int_priming = odeint(modele_1, EI, time, args=(params,), hmax=pas_t)
                 
             else:
                 m_res = np.array([0.01])    # for priming hote   
@@ -141,25 +156,10 @@ def app():
                 a = np.array([sum(x_res)])
                 
                 EI = np.concatenate((x_res, m_res, a))
-                
-                
-                # # Définition du modèle : 
-                def modele_1(EI,t,params):
-                    n, R, c, rho, nu = params
-                    
-                    etatdot = [k*R*(1-c)**k*EI[0:-2]*(((1/n)-EI[-2]-sum(ICombi * EI[0:-2])) +(1-rho)*EI[-2])-EI[0:-2],
-                               ((1/n)-EI[-2]-sum(ICombi * EI[0:-2]))*sum(PCombi * k*R*(1-c)**k*EI[0:-2])-(1-rho)*EI[-2]*sum(ICombi * k*R*(1-c)**k*EI[0:-2])-nu*EI[-2], 
-                               sum(EI[0:-2])]
-                    
-                    etat_x = etatdot[0]
-                    etat_m = np.array([etatdot[1]])
-                    etat_a = np.array([etatdot[2]])
-                    ETATDOT = np.concatenate((etat_x, etat_m, etat_a))
-                    return ETATDOT
             
             
                 # Integration numerique 
-                int_priming = odeint(modele_1, EI, tspan, args=(params,), hmax=pas_t)
+                int_priming = odeint(modele_2, EI, time, args=(params,), hmax=pas_t)
                 
                 while np.any((int_priming[:,-2] < 0)):
                     m_res = m_res*0.1    # for priming hote   
@@ -168,23 +168,9 @@ def app():
                     
                     EI = np.concatenate((x_res, m_res, a))
                 
-                    # # Définition du modèle : 
-                    def modele_1(EI,t,params):
-                        n, R, c, rho, nu = params
-                        
-                        etatdot = [k*R*(1-c)**k*EI[0:-2]*(((1/n)-EI[-2]-sum(ICombi * EI[0:-2])) +(1-rho)*EI[-2])-EI[0:-2],
-                                    ((1/n)-EI[-2]-sum(ICombi * EI[0:-2]))*sum(PCombi * k*R*(1-c)**k*EI[0:-2])-(1-rho)*EI[-2]*sum(ICombi * k*R*(1-c)**k*EI[0:-2])-nu*EI[-2], 
-                                    sum(EI[0:-2])]
-                        
-                        etat_x = etatdot[0]
-                        etat_m = np.array([etatdot[1]])
-                        etat_a = np.array([etatdot[2]])
-                        ETATDOT = np.concatenate((etat_x, etat_m, etat_a))
-                        return ETATDOT
-                
                 
                     # Integration numerique 
-                    int_priming = odeint(modele_1, EI, tspan, args=(params,), hmax=pas_t)
+                    int_priming = odeint(modele_2, EI, time, args=(params,), hmax=pas_t)
                 
                  
             
