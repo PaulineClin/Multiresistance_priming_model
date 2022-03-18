@@ -208,13 +208,13 @@ def app():
     ax1.set_ylabel('AUDPC')
     
     # modification des bornes des axes:
-    if np.any((Rho_AUDPC[-1,:] > 0.1)):
-        x_max = np.max(N)
-    else:
-        x_max = np.where(Rho_AUDPC[:,2] < 0.1)
-        x_max = x_max[0][0]
+    # if np.any((Rho_AUDPC[-1,:] > 0.1)):
+    #     x_max = np.max(N)
+    # else:
+    #     x_max = np.where(Rho_AUDPC[:,2] < 0.1)
+    #     x_max = x_max[0][0]
         
-    ax1.set_xlim(np.min(N), x_max) 
+    ax1.set_xlim(np.min(N), var) 
     ax1.set_ylim(0, np.max(Rho_AUDPC)+10)
     ax1.xaxis.set_major_locator(MaxNLocator(integer=True)) 
     
