@@ -84,7 +84,7 @@ def app():
     
     # Temps : 
     t_0 = 0.0
-    t_fin = st.number_input('Time max:', min_value=10, max_value = 500, value= 200)
+    t_fin = st.number_input('Time max:', min_value=10, max_value = 500, value= 100)
     pas_t = 0.01          
     
     # Définition du time (vecteur) via la fonction numpy :
