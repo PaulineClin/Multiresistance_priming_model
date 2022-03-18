@@ -21,7 +21,9 @@ def app():
     plt.rc('axes', labelsize=16) 
     
     st.markdown("# AUDPC according the number of varieties in the mixture at the equilibrium")
-    st.markdown("### There may be long calculation times for some values. ")
+    st.write(""" There may be long calculation times for some values. """)
+    st.write(r""" The area under the disease progress curve (AUDPC) at the equilibrium and as a function of the number of lines $n$ in the mixture at the equilibrium
+             for $3$ values of $\rho$. """)
     
     ###############################################################################
     ## Model function for a focal variety:   

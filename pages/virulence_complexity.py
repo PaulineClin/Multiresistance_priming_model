@@ -15,8 +15,12 @@ from matplotlib.ticker import MaxNLocator
  
 def app():    
     
-    st.markdown("# Pathogen fitness according the virulence complexity of the genotype pathogen")
-    st.markdown("## Fitness function")
+    st.markdown("## Pathogen fitness according the virulence complexity of the genotype pathogen")
+    st.markdown(r"""Pathogen fitness, $\phi_k=kR(1-c)^k$, as a function of virulence complexity $k$. 
+                Virulence complexity is the number of varieties a pathogen can infect, subject to a multiplicative cost $c$. 
+                The maximum possible transmission rate is $R$. The pathogen fitness is maximized for an intermediate level of virulence complexity, $k^*$. 
+                Note that the dotted line does not go through the maximum of the curve because $k$ can take only integer values.""")
+    
     # Figure de la fitness en fonction de i :
     
     @st.cache(suppress_st_warning = True)  

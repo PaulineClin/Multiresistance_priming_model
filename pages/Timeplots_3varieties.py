@@ -5,7 +5,19 @@ import matplotlib.pyplot as plt
 
 
 def app():
-    st.markdown("# Epidemiological dynamics for a mixture with n=3 varieties")
+    st.markdown("# Infection dynamics for a mixture with n=3 varieties")
+    st.write(r""" Infection dynamics over time for a model with $n =3$ varieties. For clarity, the infection
+             dynamics of hosts infected with pathogen genotypes having $2$ virulence alleles have been separated
+             on graphs on the second line. The first column shows the full model. The full lines correspond to variety $R_1$, the
+             dashed lines to variety $R_2$, and the dot-dashed lines to variety $R_3$. The density of hosts of variety $R_i$
+             infected by a singly virulent pathogen genotype is $y_i$, $i =1,2,3$. The density of hosts of variety $R_i$
+             infected by a doubly pathogen genotype is $z_{i,j}$, $i,j =1,2,3$ and $i\neq j$. The density of hosts of variety
+             $R_i$ infected by the triply pathogen genotype is $w_i$, $i =1,2,3$. The density of hosts of variety $R_i$ that
+             are primed is $m_i$, $i=1,2,3$. Initial conditions are arbitrary. The second column shows the reduced model, i.e.
+             the model for a focal variety. The density of hosts of the focal variety infected by the corresponding
+             singly virulent pathogen genotype is $x_1$. The density of hosts of the focal variety infected by one of
+             the corresponding doubly virulent genotypes is $x_2$. The density of hosts of the focal variety infected
+             by the triply virulent pathogen genotype is $x_3$. """)
 
     # Upload the dataset and save as csv
     st.markdown("## Time plots of the model.") 

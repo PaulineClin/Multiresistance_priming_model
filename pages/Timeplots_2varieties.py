@@ -8,11 +8,16 @@ def app():
     
     plt.rc('axes', labelsize=16) 
     
-    st.markdown("# Epidemiological dynamics for a mixture with n=2 varieties")
-
-    # Upload the dataset and save as csv
-    st.markdown("## Time plots of the model.") 
-    st.write("\n")
+    st.markdown("## Infection dynamics for a mixture with n=2 varieties")
+    st.write(r""" Infection dynamics over time for a model with $n =2$ varieties. Figure on the left shows a simulation from
+             the full model. The full lines correspond to variety $1$, and the dashed lines correspond to variety $2$.
+             The density of hosts of variety $i$ infected by the corresponding singly virulent pathogen genotype is
+             $y_i$, $i =1,2$. The density of hosts of variety $i$ infected by the doubly virulent pathogen genotype is $z_i$,
+             $i=1,2$. The density of hosts of variety $i$ that are primed is $m_i$, $i =1,2$. Figure on the right shows a simulation from the
+             reduced model, i.e. the model keeping track of a single focal variety. The density of hosts of the
+             focal variety infected by the corresponding singly virulent pathogen genotype is $x_1$. The density of
+             hosts of the focal variety infected by the doubly virulent pathogen genotype is $x_2$. The density of hosts
+             of the focal variety that are primed is m. """)
     
     @st.cache(suppress_st_warning = True)  
     def parameters(R,c,rho,nu,n):

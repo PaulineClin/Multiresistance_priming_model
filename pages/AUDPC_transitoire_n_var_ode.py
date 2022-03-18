@@ -18,8 +18,8 @@ def app():
     plt.rc('axes', labelsize=16) 
     
     st.markdown("# AUDPC according the number of varieties in the mixture over time ")
-    st.markdown("There may be long calculation times for some values. ") 
-    st.write(r""" The priming is fully efficient, $\rho = 1$. """)
+    st.write(""" There may be long calculation times for some values. """) 
+    st.write(r""" The area under the disease progress curve (AUDPC) over time and as a function of the number of lines $n$ in the mixture for $\rho=1$. """)
 
     ######################################
     ### Etude l'AUDPC dans la phase transitoire

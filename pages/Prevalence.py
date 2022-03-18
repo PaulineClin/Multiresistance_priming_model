@@ -21,11 +21,9 @@ plt.rc('axes', labelsize=16)
 
 def app():
 
-    st.markdown("# Prevalence of the disease according to the number of host genotypes in the mixture. ")
-    st.markdown("## bifurcation diagram")
-    st.markdown("""Let fixed $\nu$=1, which is a dimensionless parameter equal to
-                ($\gamma$+$\alpha$)/$\alpha$ where $\gamma$ is the priming loss rate 
-                and $\alpha$, the harvest and replanting rate.""")
+    st.markdown("## Prevalence of the disease: ")
+    st.write(r""" Total prevalence of the disease $\mathcal{P}$ as a function of the number of varieties in the mixture $n$ for $3$ values of $\rho$ and $\nu=1$.""")
+    
 
     # Calcul de la prévalence de la maladie : 
     # Paramètres 
