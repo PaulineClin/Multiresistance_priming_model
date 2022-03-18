@@ -17,6 +17,6 @@ app.add_page("Time plots n=3", Timeplots_3varieties.app)
 app.add_page("Pathogen Fitness", virulence_complexity.app)
 app.add_page("Prevalence of the disease", Prevalence.app)
 app.add_page("AUDPC of the disease at the equilibrum", AUDPC_n_var_ode.app)
-app.add_page("AUDPC of the disease over time", AUDPC_transitoire_n_var_ode.app)
+# app.add_page("AUDPC of the disease over time", AUDPC_transitoire_n_var_ode.app)
 # The main app
 app.run()
