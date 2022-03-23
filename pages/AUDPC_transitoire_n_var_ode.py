@@ -17,7 +17,7 @@ def app():
 
     plt.rc('axes', labelsize=16) 
     
-    st.markdown("# AUDPC according the number of varieties in the mixture over time ")
+    st.markdown("## AUDPC according the number of varieties in the mixture over time ")
     st.write(""" There may be long calculation times for some values. """) 
     st.write(r""" The area under the disease progress curve (AUDPC) over time and as a function of the number of lines $n$ in the mixture for $\rho=1$. """)
 
@@ -196,3 +196,6 @@ def app():
 
     # Show the pyplot figure in the app : 
     st.pyplot(fig2)
+    
+    st.caption(r""" The Area Under the Disease Progress Curve (AUDPC) over time $t$, and as a function of the number of lines $n$ in the mixture for $\rho=1$.
+               The initial conditions were arbitrarily set as: $m(0)=x_k(0)= 0.01/(n(1+2^{n-1}))$ for all $k=1, \ldots, n$.""")

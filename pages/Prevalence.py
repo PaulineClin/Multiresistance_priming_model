@@ -21,8 +21,8 @@ plt.rc('axes', labelsize=16)
 
 def app():
 
-    st.markdown("## Prevalence of the disease: ")
-    st.write(r""" Total prevalence of the disease $\mathcal{P}$ as a function of the number of varieties in the mixture $n$ for $3$ values of $\rho$ and $\nu=1$.""")
+    st.markdown("## Prevalence of the disease at the equilibrium: ")
+    st.write(r""" Variation of the prevalence  $\mathcal{P}$ as a function of the number of varieties in the mixture $n$.""")
     
 
     # Calcul de la prévalence de la maladie : 
@@ -101,3 +101,6 @@ def app():
     
     # Show the pyplot figure in the app : 
     st.pyplot(fig1)
+    
+    st.caption(r""" Total equilibrium prevalence of the disease $\mathcal{P}$} as a function of the number of varieties in the mixture $n$ for $3$ values of $\rho$ and $\nu=1$.
+               The $10\%$ prevalence threshold corresponds to a possible acceptable threshold in an agroecological context.  """)
