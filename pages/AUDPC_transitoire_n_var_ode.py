@@ -89,17 +89,18 @@ def app():
         ETATDOT = np.concatenate((etat_x, etat_m, etat_a))
         return ETATDOT
     
-    R = st.slider('Transmission rate (R):', min_value=1, max_value=100, value = 5)
-    c = st.slider('Virulence cost (c):', min_value=0.0, max_value=1.0, value = 0.3)
-    nu = st.slider('nu :', min_value=1.0, max_value=5.0, value = 1.0)
-    rho = 1
-    var = st.slider('Number of varieties (n):', min_value=1, max_value=100, value = 10)
+    with st.expander("Parameter set:"):
+        R = st.slider('Transmission rate (R):', min_value=1, max_value=100, value = 5)
+        c = st.slider('Virulence cost (c):', min_value=0.0, max_value=1.0, value = 0.3)
+        nu = st.slider('nu :', min_value=1.0, max_value=5.0, value = 1.0)
+        var = st.slider('Number of varieties (n):', min_value=1, max_value=100, value = 10)
+        t_fin = st.number_input('Temps max:', min_value=10, max_value = 100, value= 20)
     
+    rho = 1
     N = np.arange(1, var+1, 1)               # number of varieties in the mixture
     
-    # Temps : 
+    # Time scale : 
     t_0 = 0.0
-    t_fin = st.number_input('Temps max:', min_value=10, max_value = 100, value= 20)
     pas_t = 0.01
     
     # Définition du tspan (vecteur) via la fonction numpy :

@@ -63,11 +63,18 @@ def app():
     # Cas n = 3 variétés résistantes et priming efficace : 
     
     # Paramètre du modèle :
-    R = st.slider('Transmission rate (R):', min_value=1, max_value=100, value = 20)
-    c = st.slider('Virulence cost (c):', min_value=0.0, max_value=1.0, value = 0.49)
-    rho = st.slider(r'Priming efficiency:', min_value=0.0, max_value=1.0, value=0.8)
+    with st.expander("Parameter set:"):    
+        R = st.slider('Transmission rate (R):', min_value=1, max_value=100, value = 20)
+        c = st.slider('Virulence cost (c):', min_value=0.0, max_value=1.0, value = 0.49)
+        rho = st.slider(r'Priming efficiency:', min_value=0.0, max_value=1.0, value=0.8)
+        t_fin = st.number_input('Time max:', min_value=10, max_value = 500, value= 100)
+        
     nu = 1
     n = 3
+    
+    # Time scale: 
+    t_0 = 0.0
+    pas_t = 0.01      
     
     # Encapsulation des paramètres du modèle dans une matrice  : 
     params = parameters(R,c,rho,nu,n)
@@ -82,11 +89,6 @@ def app():
                     0.01, 0.06,
                     0.01, 0.03, 0.06, 
                     0.01, 0.03, 0.06])
-    
-    # Temps : 
-    t_0 = 0.0
-    t_fin = st.number_input('Time max:', min_value=10, max_value = 500, value= 100)
-    pas_t = 0.01          
     
     # Définition du time (vecteur) via la fonction numpy :
     time = duration(t_0,t_fin,pas_t) # création d'un vecteur avec des valeurs uniformément espacées.
