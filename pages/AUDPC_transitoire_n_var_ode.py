@@ -177,12 +177,12 @@ def app():
      
     fig2, ax2 = plt.subplots() 
     
-    ax2.plot(N, Finaux[100,:], label = 'T1', color='#fed976')
-    ax2.plot(N, Finaux[499,:], label = 'T5', color ='#feb24c')
-    ax2.plot(N, Finaux[999,:], label = 'T10', color='#fc4e2a')
-    ax2.plot(N, Finaux[1999,:], label = 'T20', color ='black')
+    # ax2.plot(N, Finaux[100,:], label = 'T1', color='#fed976')
+    ax2.plot(N, Finaux[499,:], 'o-', markevery = np.arange(0, var, 1), markersize= 5, markerfacecolor='white', markeredgecolor='#feb24c', color ='#feb24c', label = 'T5')
+    ax2.plot(N, Finaux[999,:], 'o-', markevery = np.arange(0, var, 1), markersize= 5, markerfacecolor='white', markeredgecolor='#fc4e2a', color='#fc4e2a', label = 'T10')
+    ax2.plot(N, Finaux[1999,:], 'o-', markevery =np.arange(0, var, 1), markersize= 5, markerfacecolor='white', markeredgecolor='k',color ='black', label = 'T20')
     
-    ax2.set_xlabel('Proportion of resistant')
+    ax2.set_xlabel('Number of varieties')
     ax2.set_ylabel('Audpc')
     
     # modification des bornes des axes
@@ -192,7 +192,7 @@ def app():
     ax2.xaxis.set_major_locator(MaxNLocator(integer=True)) 
     ax2.yaxis.set_major_locator(MaxNLocator(integer=True)) 
     
-    ax2.legend(loc='upper right', markerscale = 3, fontsize = 10)
+    ax2.legend(loc='upper right', markerscale = 1, fontsize = 10)
 
     # Show the pyplot figure in the app : 
     st.pyplot(fig2)
