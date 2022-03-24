@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 
 def app():
-    st.markdown("# Plant-epidemic dynamics for a mixture with n=3 varieties")
+    st.markdown("## Plant-epidemic dynamics for a mixture with n=3 varieties")
    
 
     # Upload the dataset and save as csv
