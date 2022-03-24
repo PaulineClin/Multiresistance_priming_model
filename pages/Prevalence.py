@@ -87,9 +87,9 @@ def app():
     fig1, ax1 = plt.subplots()
     
     
-    ax1.plot(n_var,Prevalence_final[98,:], color='r', label=r"$\rho=1$")
-    ax1.plot(n_var,Prevalence_final[49,:], color='orange', label=r"$\rho = 0.5$")
-    ax1.plot(n_var,Prevalence_final[0,:], color='k', label=r"$\rho = 0$")
+    ax1.plot(n_var,Prevalence_final[98,:], 'o-', markersize= 5, markerfacecolor='white', markeredgecolor='red', color = 'r', label=r"$\rho=1$")
+    ax1.plot(n_var,Prevalence_final[49,:], 'o-', markersize= 5, markerfacecolor='white', markeredgecolor='orange', color='orange', label=r"$\rho = 0.5$")
+    ax1.plot(n_var,Prevalence_final[0,:], 'o-', markersize= 5, markerfacecolor='white', markeredgecolor='k',color='k', label=r"$\rho = 0$")
     ax1.hlines(0.10, xmin=1, xmax=np.max(n), colors = 'grey', linestyles = 'dashed', label = '10% threshold') 
     ax1.vlines(i, ymin=0, ymax=1, colors = 'grey', linestyles = 'dashdot', label = ' n = {} lines'.format(i)) 
     ax1.set_ylim(0, 1)
