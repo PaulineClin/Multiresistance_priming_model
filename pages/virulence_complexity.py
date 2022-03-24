@@ -26,7 +26,7 @@ def app():
         Fitness = R*(1-c)**i*i
         return Fitness
         
-    @st.cache(suppress_st_warning = True)       
+    @st.cache(suppress_st_warning = True)
     def Fitness_max(R,c, Fitness):
         Fitness_max = np.where(Fitness == np.amax(Fitness))
         return int(Fitness_max[0][0])
@@ -44,17 +44,20 @@ def app():
     path_fitness_max = Fitness_max(R,c,path_fitness)
     complex_max = K_max(R,c,path_fitness_max)
     
-    #print(K_max)
+    # Pour faire apparaître les cercles sur les valeurs d'intérêt :
+    # circles = np.arange(0, 210, 10)
     
     fig, ax = plt.subplots()
-    plt.plot(i, path_fitness, 'k')
+    # plt.plot(i, path_fitness, 'k')
+    plt.plot(i, path_fitness,  'o-', markevery = np.arange(0, 210, 10), markersize= 5, markerfacecolor='white', markeredgecolor='k', color='k')
+
     ax.set_ylim(0, np.max(path_fitness+2))
     ax.set_xlim(0, np.max(i))
-    ax.vlines(complex_max, ymin=0, ymax=np.max(path_fitness+2), colors = 'k', linestyles='dashed', label =' k = {} lines'.format(complex_max))
+    ax.vlines(complex_max, ymin=0, ymax=np.max(path_fitness+2), colors = 'k', linestyles='dashed', label =r' $k$ = {} lines'.format(complex_max))
 
     ax.xaxis.set_major_locator(MaxNLocator(integer=True))
 
-    ax.set_xlabel('Virulence complexity k')
+    ax.set_xlabel(r'Virulence complexity $k$')
     ax.set_ylabel('Pathogen Fitness')
     ax.legend(loc = 'upper right')
     
