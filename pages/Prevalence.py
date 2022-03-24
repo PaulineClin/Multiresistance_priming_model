@@ -27,8 +27,10 @@ def app():
 
     # Calcul de la prévalence de la maladie : 
     # Paramètres 
-    R = st.slider('Transmission rate (R):', min_value=1, max_value=100, value = 20)
-    c = st.slider('Virulence cost (c):', min_value=0.0, max_value=1.0, value = 0.51)
+    with st.expander("Parameter set:"):
+        R = st.slider('Transmission rate (R):', min_value=1, max_value=100, value = 20)
+        c = st.slider('Virulence cost (c):', min_value=0.0, max_value=1.0, value = 0.51)
+        
     nu = 1
         
     # Calcul de imax : 

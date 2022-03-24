@@ -35,9 +35,11 @@ def app():
     def K_max(R,c,Fitness_max):
         K_max = int(np.around(i[Fitness_max]))
         return K_max
-           
-    R = st.slider('Transmission rate (R):', min_value=1, max_value=100, value = 20)
-    c = st.slider('Virulence cost (c):', min_value=0.0, max_value=1.0, value = 0.49)
+    
+    with st.expander("Parameter set:"):
+        R = st.slider('Transmission rate (R):', min_value=1, max_value=100, value = 20)
+        c = st.slider('Virulence cost (c):', min_value=0.0, max_value=1.0, value = 0.49)
+        
     i = np.arange(0, 21, 0.1)
 
     path_fitness = fitness(R,c)
